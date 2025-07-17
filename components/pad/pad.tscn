@@ -1,10 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://ct1llcgyert80"]
+[gd_scene load_steps=6 format=3 uid="uid://ct1llcgyert80"]
 
 [ext_resource type="Script" uid="uid://tcancn845m16" path="res://components/pad/pad.gd" id="1_aqlkc"]
 [ext_resource type="Texture2D" uid="uid://dil8utqvmqt6i" path="res://png/paddleRed.png" id="1_js7gn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqlkc"]
 size = Vector2(112, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g0tdw"]
+size = Vector2(29.3125, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bwacv"]
+size = Vector2(64, 12)
 
 [node name="Pad" type="CharacterBody2D"]
 script = ExtResource("1_aqlkc")
@@ -19,3 +25,25 @@ texture = ExtResource("1_js7gn")
 
 [node name="BallSocket" type="Marker2D" parent="."]
 position = Vector2(0, -32)
+
+[node name="LeftSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftSensor"]
+position = Vector2(-46.6563, -14)
+shape = SubResource("RectangleShape2D_g0tdw")
+
+[node name="RightSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightSensor"]
+position = Vector2(46.6875, -14)
+shape = SubResource("RectangleShape2D_g0tdw")
+
+[node name="MiddleSensor" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MiddleSensor"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_bwacv")
+
+[connection signal="body_entered" from="LeftSensor" to="." method="_on_LeftSensor_body_entered"]
+[connection signal="body_entered" from="RightSensor" to="." method="_on_RightSensor_body_entered"]
+[connection signal="body_entered" from="MiddleSensor" to="." method="_on_MiddleSensor_body_entered"]
