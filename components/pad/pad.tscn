@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ct1llcgyert80"]
 
-[ext_resource type="Script" uid="uid://tcancn845m16" path="res://pad.gd" id="1_aqlkc"]
+[ext_resource type="Script" uid="uid://tcancn845m16" path="res://components/pad/pad.gd" id="1_aqlkc"]
 [ext_resource type="Texture2D" uid="uid://dil8utqvmqt6i" path="res://png/paddleRed.png" id="1_js7gn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_aqlkc"]

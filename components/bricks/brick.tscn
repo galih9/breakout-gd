@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bs1u4o8t4t160"]
 
-[ext_resource type="Script" uid="uid://bqwolk2ha4eyl" path="res://brick.gd" id="1_5p85m"]
+[ext_resource type="Script" uid="uid://bqwolk2ha4eyl" path="res://components/bricks/brick.gd" id="1_5p85m"]
 [ext_resource type="Texture2D" uid="uid://qqjy43oimuol" path="res://png/element_blue_rectangle.png" id="1_awxk8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5p85m"]
@@ -9,6 +9,16 @@ size = Vector2(64, 32)
 [node name="Brick" type="StaticBody2D" groups=["bricks"]]
 collision_mask = 2
 script = ExtResource("1_5p85m")
+
+[node name="Label" type="Label" parent="."]
+z_index = 2
+offset_left = -24.0
+offset_top = -16.0
+offset_right = 24.0
+offset_bottom = 16.0
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5p85m")

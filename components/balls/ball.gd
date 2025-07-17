@@ -1,6 +1,7 @@
 extends RigidBody2D
 
 @export var initial_speed: float = 300.0
+@export var damage := 1  # Ball level / damage
 
 var launched: bool = false
 var paddle_ref: Node2D
@@ -43,9 +44,8 @@ func reset_ball():
 
 
 func _on_Area2D_body_entered(body):
-	if body.is_in_group("bricks"):
-		body.queue_free()
-
+	if body.is_in_group("bricks") && body.has_method("apply_damage"):
+		body.apply_damage(damage)
 
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:
 	if body == self:
