@@ -1,7 +1,7 @@
 extends StaticBody2D
 
 @export var brick_texture: Texture2D
-@export var max_hp: int = 3
+@export var max_hp: int = 1
 
 @onready var hp_label = $Label
 var current_hp: int
