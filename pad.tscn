@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://ct1llcgyert80"]
+
+[ext_resource type="Script" uid="uid://tcancn845m16" path="res://pad.gd" id="1_aqlkc"]
+[ext_resource type="Texture2D" uid="uid://dil8utqvmqt6i" path="res://png/paddleRed.png" id="1_js7gn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqlkc"]
+size = Vector2(112, 32)
+
+[node name="Pad" type="CharacterBody2D"]
+script = ExtResource("1_aqlkc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_aqlkc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(3.57628e-06, 0)
+scale = Vector2(1.07692, 1.33333)
+texture = ExtResource("1_js7gn")
+
+[node name="BallSocket" type="Marker2D" parent="."]
+position = Vector2(0, -32)
