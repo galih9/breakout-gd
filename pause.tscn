@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://cf4kbulubo4s7"]
+
+[ext_resource type="Script" uid="uid://bgwmyvldjwbok" path="res://pause.gd" id="1_45vjg"]
+
+[node name="PauseUI" type="CanvasLayer"]
+visible = false
+script = ExtResource("1_45vjg")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 224.0
+offset_top = 104.0
+offset_right = -200.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 224.0
+offset_top = 152.0
+offset_right = 480.0
+offset_bottom = 210.0
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+text = "Continue"
+
+[connection signal="pressed" from="Panel/VBoxContainer/ResumeButton" to="." method="_on_resume_pressed"]
