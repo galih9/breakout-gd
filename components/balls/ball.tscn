@@ -30,3 +30,9 @@ shape = SubResource("CircleShape2D_41u45")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_x8fbi")
+
+[node name="Line2D" type="Line2D" parent="."]
+width = 8.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2

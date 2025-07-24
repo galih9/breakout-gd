@@ -6,6 +6,11 @@ extends RigidBody2D
 @export var side_bounce_strength: float = 0.7 # How much horizontal velocity to add/subtract (0.0 to 1.0)
 @export var middle_bounce_vertical_bias: float = 0.2 # How much more vertical the middle bounce is
 
+@onready var trail = $Line2D
+var trail_points = []
+var max_trail_length = 20
+var trail_update_distance = 5.0
+
 var launched: bool = false
 var paddle_ref: Node2D
 var socket_ref: Marker2D
@@ -14,6 +19,7 @@ func _ready():
 	# Get references to the paddle and its marker
 	paddle_ref = get_parent().get_node("Pad")
 	socket_ref = paddle_ref.get_node("BallSocket")
+	trail.gradient = create_trail_gradient()
 
 	# Connect to the paddle's custom signals
 	if is_instance_valid(paddle_ref):
@@ -36,6 +42,7 @@ func _physics_process(_delta):
 		if Input.is_action_just_pressed("ui_up"):
 			launch_ball()
 	else:
+		update_trail()
 		# Maintain constant speed
 		if linear_velocity.length() != initial_speed:
 			linear_velocity = linear_velocity.normalized() * initial_speed
@@ -119,3 +126,25 @@ func _on_Area2D_body_entered(body):
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:
 	if body == self:
 		reset_ball()
+
+func create_trail_gradient():
+	var gradient = Gradient.new()
+	gradient.add_point(0.0, Color(0, 1, 1, 1))  # Cyan, full opacity
+	gradient.add_point(1.0, Color(0, 1, 1, 0))  # Cyan, transparent
+	return gradient
+
+func update_trail():
+	var current_pos = global_position
+	
+	# Add new point if we've moved far enough
+	if trail_points.is_empty() or current_pos.distance_to(trail_points[0]) > trail_update_distance:
+		trail_points.push_front(current_pos)
+		
+		# Remove old points
+		if trail_points.size() > max_trail_length:
+			trail_points.pop_back()
+	
+	# Update Line2D points
+	trail.clear_points()
+	for point in trail_points:
+		trail.add_point(to_local(point))

@@ -6,6 +6,7 @@ extends Node2D
 
 var initial_brick_data: Array = [] # To store position and initial properties of bricks
 var current_level: int = 1 # Keep track of the current level/ante
+var ball_count: int = 1 # Keep track of the current level/ante
 var launched_once: bool = false # Flag to prevent immediate level clear on startup
 
 func _ready():
@@ -54,7 +55,6 @@ func store_initial_brick_layout():
 	# After storing the layout, spawn the first set of bricks for Level 1
 	spawn_bricks()
 	print("Initial brick layout stored and first level spawned.")
-
 
 func spawn_bricks():
 	# First, clear any existing bricks (from previous levels)
