@@ -36,3 +36,9 @@ width = 8.0
 joint_mode = 2
 begin_cap_mode = 2
 end_cap_mode = 2
+
+[node name="IcePowerTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="timeout" from="IcePowerTimer" to="." method="_on_ice_power_timer_timeout"]

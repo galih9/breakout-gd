@@ -41,12 +41,18 @@ func store_initial_brick_layout():
 	for child in bricks_node.get_children():
 		# Make sure it's a brick and part of the "bricks" group
 		if child is StaticBody2D and child.is_in_group("bricks"):
-			# Assuming your brick scene has 'brick_texture' and 'max_hp' exported
+			# Store ALL brick properties including movement properties
 			var brick_data = {
 				"scene_path": child.scene_file_path, # Path to the original brick scene
 				"position": child.position,
 				"brick_texture": child.brick_texture,
-				"max_hp": child.max_hp
+				"max_hp": child.max_hp,
+				# Movement properties
+				"is_moving": child.is_moving if "is_moving" in child else false,
+				"move_points": child.move_points.duplicate() if "move_points" in child else [],
+				"move_speed": child.move_speed if "move_speed" in child else 50.0,
+				"wait_time_at_points": child.wait_time_at_points if "wait_time_at_points" in child else 0.0,
+				"loop_movement": child.loop_movement if "loop_movement" in child else true
 			}
 			initial_brick_data.append(brick_data)
 			# Clean up the initial bricks from the scene after storing their data
@@ -78,9 +84,19 @@ func spawn_bricks():
 			new_brick.max_hp = data.max_hp + (current_level - 1) 
 			new_brick.current_hp = new_brick.max_hp # Ensure current_hp is set
 			new_brick.update_label() # Update the label immediately
+			
+			# Apply movement properties if they exist
+			if "is_moving" in data and data.is_moving:
+				new_brick.is_moving = data.is_moving
+				new_brick.move_points = data.move_points.duplicate()
+				new_brick.move_speed = data.move_speed
+				new_brick.wait_time_at_points = data.wait_time_at_points
+				new_brick.loop_movement = data.loop_movement
+				
+				# Important: Call setup_movement to initialize the movement system
+				new_brick.setup_movement()
 
 	print("Bricks spawned for Level ", current_level)
-
 
 func check_for_bricks_remaining():
 	var brick_count = 0

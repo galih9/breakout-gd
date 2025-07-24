@@ -27,6 +27,12 @@ script = ExtResource("1_ig7tw")
 position = Vector2(640, 208)
 brick_texture = ExtResource("3_lquwl")
 
+[node name="GreenBrick10" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(104, 96)
+brick_texture = ExtResource("3_lquwl")
+is_moving = true
+move_points = Array[Vector2]([Vector2(100, 100), Vector2(400, 100)])
+
 [node name="ball" parent="." instance=ExtResource("3_1bvp3")]
 position = Vector2(579, 546)
 
