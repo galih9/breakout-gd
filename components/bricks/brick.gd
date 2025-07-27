@@ -1,5 +1,12 @@
 extends StaticBody2D
 
+enum BrickType {
+	NORMAL,
+	MOVING,
+	BLOCK
+}
+
+@export var brick_type: BrickType = BrickType.NORMAL
 @export var brick_texture: Texture2D
 @export var max_hp: int = 1
 
@@ -12,6 +19,7 @@ extends StaticBody2D
 
 @onready var hp_label = $Label
 var current_hp: int
+var can_be_destroyed: bool = true
 
 # Movement variables
 var current_point_index: int = 0
@@ -25,13 +33,31 @@ var speed_modifier: float = 1.0  # Speed multiplier for effects like freeze
 func _ready():
 	if brick_texture != null:
 		$Sprite2D.texture = brick_texture
-	current_hp = max_hp
-	update_label()
+	
+	print("Setting up brick type:", brick_type)
+	setup_brick_type()
 	
 	# Initialize movement
 	original_speed = move_speed
 	if is_moving and move_points.size() > 0:
 		setup_movement()
+
+func setup_brick_type():
+	# Setup based on brick type
+	match brick_type:
+		BrickType.NORMAL:
+			can_be_destroyed = true
+			is_moving = false
+		BrickType.MOVING:
+			can_be_destroyed = true
+			is_moving = true
+		BrickType.BLOCK:
+			can_be_destroyed = false
+			is_moving = false
+			hp_label.hide() # Hide HP label for block bricks
+	
+	current_hp = max_hp if can_be_destroyed else 0
+	update_label()
 
 func _physics_process(delta):
 	if is_moving and not is_waiting and move_points.size() > 1:
@@ -98,8 +124,11 @@ func _process(delta):
 			set_next_target()
 
 func apply_damage(amount: int):
+	print(can_be_destroyed)
+	if not can_be_destroyed:
+		return
+		
 	current_hp -= amount
-	print("called",amount)
 	update_label()
 	if current_hp <= 0:
 		queue_free()

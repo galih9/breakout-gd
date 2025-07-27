@@ -33,83 +33,70 @@ func _physics_process(_delta):
 	if launched_once:
 		check_for_bricks_remaining()
 
+func check_for_bricks_remaining():
+	var destroyable_brick_count = 0
+	for child in bricks_node.get_children():
+		if child is StaticBody2D and child.is_in_group("bricks") and child.can_be_destroyed:
+			destroyable_brick_count += 1
+	
+	# If no destroyable bricks are left and the ball has been launched at least once
+	if destroyable_brick_count == 0 and launched_once:
+		print("All destroyable bricks destroyed! Advancing to next level.")
+		current_level += 1
+		reset_level()
+
 func store_initial_brick_layout():
-	# Clear any existing data
 	initial_brick_data.clear()
 
-	# Iterate through existing bricks in the scene to save their data
 	for child in bricks_node.get_children():
-		# Make sure it's a brick and part of the "bricks" group
 		if child is StaticBody2D and child.is_in_group("bricks"):
-			# Store ALL brick properties including movement properties
 			var brick_data = {
-				"scene_path": child.scene_file_path, # Path to the original brick scene
+				"scene_path": child.scene_file_path,
 				"position": child.position,
 				"brick_texture": child.brick_texture,
 				"max_hp": child.max_hp,
+				"brick_type": child.brick_type as int,  # Store as integer
 				# Movement properties
-				"is_moving": child.is_moving if "is_moving" in child else false,
-				"move_points": child.move_points.duplicate() if "move_points" in child else [],
-				"move_speed": child.move_speed if "move_speed" in child else 50.0,
-				"wait_time_at_points": child.wait_time_at_points if "wait_time_at_points" in child else 0.0,
-				"loop_movement": child.loop_movement if "loop_movement" in child else true
+				"is_moving": child.is_moving,
+				"move_points": child.move_points.duplicate(),
+				"move_speed": child.move_speed,
+				"wait_time_at_points": child.wait_time_at_points,
+				"loop_movement": child.loop_movement
 			}
+			print("Storing brick type:", brick_data.brick_type)
 			initial_brick_data.append(brick_data)
-			# Clean up the initial bricks from the scene after storing their data
 			child.queue_free()
 
-	# After storing the layout, spawn the first set of bricks for Level 1
 	spawn_bricks()
-	print("Initial brick layout stored and first level spawned.")
 
 func spawn_bricks():
-	# First, clear any existing bricks (from previous levels)
 	for child in bricks_node.get_children():
 		child.queue_free()
 	
-	# Spawn new bricks based on the stored initial data
 	for data in initial_brick_data:
-		# Load the brick scene dynamically
 		var brick_scene = load(data.scene_path)
 		if brick_scene:
 			var new_brick = brick_scene.instantiate()
+			new_brick.brick_type = data.brick_type # Set brick type before adding to scene
 			bricks_node.add_child(new_brick)
 			new_brick.position = data.position
-			
-			# Apply texture
 			new_brick.brick_texture = data.brick_texture
 			
-			# Increase HP for new levels, or keep original for level 1
-			# Each level (after the first) adds 1 HP to bricks
-			new_brick.max_hp = data.max_hp + (current_level - 1) 
-			new_brick.current_hp = new_brick.max_hp # Ensure current_hp is set
-			new_brick.update_label() # Update the label immediately
+			# Only increase HP for destroyable bricks
+			if new_brick.can_be_destroyed:
+				new_brick.max_hp = data.max_hp + (current_level - 1)
+				new_brick.current_hp = new_brick.max_hp
 			
-			# Apply movement properties if they exist
-			if "is_moving" in data and data.is_moving:
+			# Apply movement properties
+			if data.brick_type == new_brick.BrickType.MOVING:
 				new_brick.is_moving = data.is_moving
 				new_brick.move_points = data.move_points.duplicate()
 				new_brick.move_speed = data.move_speed
 				new_brick.wait_time_at_points = data.wait_time_at_points
 				new_brick.loop_movement = data.loop_movement
-				
-				# Important: Call setup_movement to initialize the movement system
 				new_brick.setup_movement()
-
-	print("Bricks spawned for Level ", current_level)
-
-func check_for_bricks_remaining():
-	var brick_count = 0
-	for child in bricks_node.get_children():
-		# Count only actual brick nodes
-		if child is StaticBody2D and child.is_in_group("bricks"):
-			brick_count += 1
 	
-	# If no bricks are left and the ball has been launched at least once
-	if brick_count == 0 and launched_once:
-		print("All bricks destroyed! Advancing to next level.")
-		current_level += 1
-		reset_level()
+	print("Bricks spawned for Level ", current_level)
 
 func reset_level():
 	# Reset the ball to its initial state/position
@@ -119,3 +106,5 @@ func reset_level():
 
 	# Spawn the next set of bricks for the new level
 	spawn_bricks()
+
+	print("Bricks spawned for Level ", current_level)

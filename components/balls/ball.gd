@@ -55,6 +55,7 @@ func _physics_process(_delta):
 
 		if Input.is_action_just_pressed("ui_up"):
 			launch_ball()
+
 	else:
 		update_trail()
 		# Maintain constant speed
