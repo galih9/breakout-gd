@@ -15,9 +15,15 @@ run/main_scene="uid://b30q5v3p5cg4y"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Generator="*res://utils/generator.gd"
+
 [global_group]
 
 bricks=""
+walls=""
+pads=""
 
 [input]
 

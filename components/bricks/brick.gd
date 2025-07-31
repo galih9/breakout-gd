@@ -30,6 +30,8 @@ var movement_direction: int = 1  # 1 for forward, -1 for backward (ping-pong mod
 var original_speed: float  # Store original speed for freeze effects
 var speed_modifier: float = 1.0  # Speed multiplier for effects like freeze
 
+signal brick_damaged(points)
+
 func _ready():
 	if brick_texture != null:
 		$Sprite2D.texture = brick_texture
@@ -124,10 +126,10 @@ func _process(delta):
 			set_next_target()
 
 func apply_damage(amount: int):
-	print(can_be_destroyed)
 	if not can_be_destroyed:
 		return
-		
+	
+	emit_signal("brick_damaged", 1000)  # Or any value for score
 	current_hp -= amount
 	update_label()
 	if current_hp <= 0:

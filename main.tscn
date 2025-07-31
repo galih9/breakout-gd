@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://b30q5v3p5cg4y"]
+[gd_scene load_steps=12 format=3 uid="uid://b30q5v3p5cg4y"]
 
 [ext_resource type="Script" uid="uid://cqyen472s3j3q" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ct1llcgyert80" path="res://components/pad/pad.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cf4kbulubo4s7" path="res://pause.tscn" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bs1u4o8t4t160" path="res://components/bricks/brick.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://tevjgcmelvev" path="res://components/balls/ball.tscn" id="3_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://soqbutgu50a8" path="res://png/element_green_rectangle.png" id="3_lquwl"]
+[ext_resource type="Texture2D" uid="uid://soqbutgu50a8" path="res://assets/png/element_green_rectangle.png" id="3_lquwl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(16, 648)
@@ -16,6 +16,12 @@ size = Vector2(1152, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(1168.5, 16)
 
+[sub_resource type="SystemFont" id="SystemFont_7mycd"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_272bh"]
+font = SubResource("SystemFont_7mycd")
+font_size = 45
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_ig7tw")
 
@@ -23,41 +29,125 @@ script = ExtResource("1_ig7tw")
 
 [node name="Bricks" type="Node2D" parent="."]
 
-[node name="GreenBrick9" parent="Bricks" instance=ExtResource("2_h2yge")]
+[node name="Brick" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(328, 176)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick2" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(704, 240)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick3" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(640, 176)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick4" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(264, 208)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick5" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(952, 288)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick6" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(888, 288)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick7" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(704, 208)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick8" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(576, 240)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick9" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(576, 208)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick10" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(392, 176)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick11" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(264, 176)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick12" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(392, 208)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick13" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(328, 240)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick14" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(264, 240)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick15" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(392, 240)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick16" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(576, 176)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick17" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(640, 240)
+brick_texture = ExtResource("3_lquwl")
+loop_movement = false
+
+[node name="Brick18" parent="Bricks" instance=ExtResource("2_h2yge")]
 position = Vector2(640, 208)
 brick_texture = ExtResource("3_lquwl")
+loop_movement = false
 
-[node name="GreenBrick11" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(907, 306)
-brick_type = 2
+[node name="Brick19" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(704, 176)
 brick_texture = ExtResource("3_lquwl")
+loop_movement = false
 
-[node name="GreenBrick10" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(104, 96)
-brick_type = 1
+[node name="Brick20" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(1016, 288)
 brick_texture = ExtResource("3_lquwl")
-is_moving = true
-move_points = Array[Vector2]([Vector2(100, 100), Vector2(400, 100)])
+loop_movement = false
 
 [node name="ball" parent="." instance=ExtResource("3_1bvp3")]
 position = Vector2(579, 546)
 
-[node name="Pad" parent="." instance=ExtResource("2_0xm2m")]
+[node name="Pad" parent="." groups=["pads"] instance=ExtResource("2_0xm2m")]
 position = Vector2(579, 580)
 
-[node name="WallLeft" type="StaticBody2D" parent="."]
+[node name="WallLeft" type="StaticBody2D" parent="." groups=["walls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
 position = Vector2(-8, 324)
 shape = SubResource("RectangleShape2D_0xm2m")
 
-[node name="WallTop" type="StaticBody2D" parent="."]
+[node name="WallTop" type="StaticBody2D" parent="." groups=["walls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop"]
 position = Vector2(576, -8)
 shape = SubResource("RectangleShape2D_h2yge")
 
-[node name="WallRight" type="StaticBody2D" parent="."]
+[node name="WallRight" type="StaticBody2D" parent="." groups=["walls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
 position = Vector2(1160, 324)
@@ -68,5 +158,21 @@ shape = SubResource("RectangleShape2D_0xm2m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameOverSensor"]
 position = Vector2(568, 656)
 shape = SubResource("RectangleShape2D_1bvp3")
+
+[node name="Score" type="Label" parent="."]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "0000"
+label_settings = SubResource("LabelSettings_272bh")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="GameOverSensor" to="ball" method="_on_GameOverSensor_body_entered"]

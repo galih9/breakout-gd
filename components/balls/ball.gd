@@ -19,6 +19,17 @@ var launched: bool = false
 var paddle_ref: Node2D
 var socket_ref: Marker2D
 
+var padsounds = [
+	preload("res://assets/audio/rollover1.ogg"),
+	preload("res://assets/audio/rollover2.ogg"),
+	preload("res://assets/audio/rollover3.ogg"),
+]
+var wallbricksound = [
+	preload("res://assets/audio/switch1.ogg"),
+	preload("res://assets/audio/switch2.ogg"),
+	preload("res://assets/audio/switch3.ogg"),
+]
+
 func _ready():
 	# Get references to the paddle and its marker
 	paddle_ref = get_parent().get_node("Pad")
@@ -147,8 +158,27 @@ func _on_paddle_right_hit(ball_node_ref: Node2D) -> void:
 	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
 	print("Ball hit right sensor!")
 
+func play_random_click_sound():
+	var random_index = Generator.generate_random_number(0, wallbricksound.size() - 1)
+	$AudioStreamPlayer.stream = wallbricksound[random_index]
+	$AudioStreamPlayer.play()
+	
+
+func play_random_pad_sound():
+	var random_index = Generator.generate_random_number(0, padsounds.size() - 1)
+	$AudioStreamPlayer.stream = padsounds[random_index]
+	$AudioStreamPlayer.play()
+
 func _on_Area2D_body_entered(body):
+	if body.is_in_group("walls"):
+		play_random_click_sound()
+	elif body.is_in_group("bricks"):
+		play_random_click_sound()
+	elif body.is_in_group("pads"):
+		play_random_pad_sound()
 	if body.is_in_group("bricks") && body.has_method("apply_damage"):
+		var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
+		main.brick_destroyed(100)  # Send score or any data
 		body.apply_damage(damage)
 
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:

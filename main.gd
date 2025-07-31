@@ -8,6 +8,7 @@ var initial_brick_data: Array = [] # To store position and initial properties of
 var current_level: int = 1 # Keep track of the current level/ante
 var ball_count: int = 1 # Keep track of the current level/ante
 var launched_once: bool = false # Flag to prevent immediate level clear on startup
+var score = 0
 
 func _ready():
 	# Ensure the ball is at its starting position before the game begins
@@ -20,6 +21,10 @@ func _ready():
 	# The first set of bricks will be spawned by store_initial_brick_layout
 	# No need to call spawn_bricks() here again.
 
+func brick_destroyed(points):
+	score += points
+	$Score.text = str(score)
+	
 func _input(event):
 	if event.is_action_pressed("pause") and not get_tree().paused:
 		pause_ui.show_pause()
@@ -47,6 +52,7 @@ func check_for_bricks_remaining():
 
 func store_initial_brick_layout():
 	initial_brick_data.clear()
+	print('curr level ', current_level)
 
 	for child in bricks_node.get_children():
 		if child is StaticBody2D and child.is_in_group("bricks"):
