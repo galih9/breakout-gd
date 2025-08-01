@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bs1u4o8t4t160" path="res://components/bricks/brick.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://tevjgcmelvev" path="res://components/balls/ball.tscn" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://soqbutgu50a8" path="res://assets/png/element_green_rectangle.png" id="3_lquwl"]
+[ext_resource type="FontFile" uid="uid://blyuyx283rldy" path="res://assets/fonts/Dream MMA.ttf" id="7_272bh"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(16, 648)
@@ -16,10 +17,8 @@ size = Vector2(1152, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1bvp3"]
 size = Vector2(1168.5, 16)
 
-[sub_resource type="SystemFont" id="SystemFont_7mycd"]
-
 [sub_resource type="LabelSettings" id="LabelSettings_272bh"]
-font = SubResource("SystemFont_7mycd")
+font = ExtResource("7_272bh")
 font_size = 45
 
 [node name="Main" type="Node2D"]

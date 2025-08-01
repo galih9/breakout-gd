@@ -8,10 +8,8 @@ friction = 0.0
 bounce = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ktgx5"]
-radius = 11.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_41u45"]
-radius = 11.0454
 
 [node name="ball" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_41u45")
