@@ -21,6 +21,10 @@ func _ready():
 	# The first set of bricks will be spawned by store_initial_brick_layout
 	# No need to call spawn_bricks() here again.
 
+func ball_count_check():
+	ball_count = ball_count-1
+	print(ball_count)
+
 func brick_destroyed(points):
 	score += points
 	$Score.text = str(score)
@@ -37,6 +41,11 @@ func _physics_process(_delta):
 	# Check for bricks only after the ball has been launched at least once
 	if launched_once:
 		check_for_bricks_remaining()
+	
+	
+	if (ball_count == 0):
+		ball_count = 1
+		ball_node.reset_ball()
 
 func check_for_bricks_remaining():
 	var destroyable_brick_count = 0

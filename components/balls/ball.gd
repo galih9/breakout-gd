@@ -25,9 +25,9 @@ var padsounds = [
 	preload("res://assets/audio/rollover3.ogg"),
 ]
 var wallbricksound = [
-	preload("res://assets/audio/switch1.ogg"),
-	preload("res://assets/audio/switch2.ogg"),
-	preload("res://assets/audio/switch3.ogg"),
+	preload("res://assets/audio/click1.ogg"),
+	preload("res://assets/audio/click2.ogg"),
+	preload("res://assets/audio/click3.ogg"),
 ]
 
 func _ready():
@@ -183,7 +183,9 @@ func _on_Area2D_body_entered(body):
 
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:
 	if body == self:
-		reset_ball()
+		var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
+		main.ball_count_check()
+		#reset_ball()
 
 func create_trail_gradient():
 	var gradient = Gradient.new()
