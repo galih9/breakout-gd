@@ -21,7 +21,13 @@ func _ready():
 	# The first set of bricks will be spawned by store_initial_brick_layout
 	# No need to call spawn_bricks() here again.
 
-func ball_count_check():
+func add_ball(count):
+	print('add ball called')
+	ball_count = ball_count+count
+	print(ball_count)
+
+func remove_ball():
+	print('remove ball called')
 	ball_count = ball_count-1
 	print(ball_count)
 
