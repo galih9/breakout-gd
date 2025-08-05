@@ -1,11 +1,5 @@
 extends RigidBody2D
 
-enum BallType {
-	NORMAL,    # Regular ball that attaches to paddle
-	SPAWNED    # Special ball spawned from brick - bypasses paddle logic
-}
-
-@export var ball_type: BallType = BallType.NORMAL
 @export var initial_speed: float = 300.0
 @export var damage := 1  # Ball level / damage
 @export var min_vertical_speed_ratio: float = 0.5 # Minimum vertical speed as a ratio of initial_speed
@@ -48,20 +42,13 @@ func _ready():
 	trail.width = trail_width
 	
 	# Only setup paddle references for normal balls
-	if ball_type == BallType.NORMAL:
-		setup_paddle_references()
-		# Put ball to sleep before launch
-		sleeping = true
-		linear_velocity = Vector2.ZERO
-		launched = false
-		# Initialize trail at socket position
-		reset_trail_at_socket()
-	else:
-		# For spawned balls, they're already launched
-		launched = true
-		sleeping = false
-		# Initialize trail at current position
-		trail_points = [global_position]
+	setup_paddle_references()
+	# Put ball to sleep before launch
+	sleeping = true
+	linear_velocity = Vector2.ZERO
+	launched = false
+	# Initialize trail at socket position
+	reset_trail_at_socket()
 	
 	# Hide trail initially if no power-up
 	trail.visible = power == "ice" and not ice_power_timer.is_stopped()
@@ -88,7 +75,7 @@ func setup_paddle_references():
 		print("Warning: Paddle reference not found for ball - this is normal for spawned balls")
 
 func _physics_process(_delta):
-	if ball_type == BallType.NORMAL and not launched:
+	if not launched:
 		# Attach ball to paddle until launch (only for normal balls)
 		if socket_ref and is_instance_valid(socket_ref):
 			global_position = socket_ref.global_position
@@ -118,21 +105,14 @@ func launch_ball():
 	trail.visible = power == "ice" and not ice_power_timer.is_stopped()
 
 func reset_ball():
-	# Only reset to paddle for normal balls
-	if ball_type == BallType.NORMAL:
-		sleeping = true
-		linear_velocity = Vector2.ZERO
-		launched = false
-		if is_instance_valid(paddle_ref) and is_instance_valid(socket_ref):
-			global_position = socket_ref.global_position
-			# Reset trail to socket position with a single point
-			reset_trail_at_socket()
-	else:
-		# For spawned balls, just destroy them when they need to reset
-		queue_free()
-		return
+	sleeping = true
+	linear_velocity = Vector2.ZERO
+	launched = false
+	if is_instance_valid(paddle_ref) and is_instance_valid(socket_ref):
+		global_position = socket_ref.global_position
+		# Reset trail to socket position with a single point
+		reset_trail_at_socket()
 	
-	# Reset power-up and trail visibility
 	power = "none"
 	trail.visible = false
 	if not ice_power_timer.is_stopped():
@@ -219,10 +199,10 @@ func _on_Area2D_body_entered(body):
 		body.apply_damage(damage)
 
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:
-	if body == self:
-		var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
+	if launched:
+		print("something touching the over sensor => " ,body)
+		var main = get_tree().get_root().get_node("Main")
 		main.remove_ball()
-		#reset_ball()
 
 func create_trail_gradient():
 	var gradient = Gradient.new()
@@ -263,7 +243,3 @@ func update_trail():
 			trail.add_point(to_local(smoothed_point))
 		else:
 			trail.add_point(to_local(point))
-
-# Helper function to set ball type (used by brick spawning)
-func set_ball_type(type: BallType):
-	ball_type = type

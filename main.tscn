@@ -132,6 +132,7 @@ loop_movement = false
 position = Vector2(488, 208)
 brick_type = 3
 ball_scene = ExtResource("3_1bvp3")
+balls_to_spawn = 2
 
 [node name="ball" parent="." instance=ExtResource("3_1bvp3")]
 position = Vector2(579, 546)

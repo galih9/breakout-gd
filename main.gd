@@ -84,7 +84,6 @@ func store_initial_brick_layout():
 				"wait_time_at_points": child.wait_time_at_points,
 				"loop_movement": child.loop_movement
 			}
-			print("Storing brick type:", brick_data.brick_type)
 			initial_brick_data.append(brick_data)
 			child.queue_free()
 

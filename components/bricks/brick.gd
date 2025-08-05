@@ -43,8 +43,6 @@ signal balls_spawned(balls_array)  # New signal for ball spawning
 func _ready():
 	if brick_texture != null:
 		$Sprite2D.texture = brick_texture
-	
-	print("Setting up brick type:", brick_type)
 	setup_brick_type()
 	
 	# Initialize movement
@@ -162,6 +160,8 @@ func spawn_balls():
 		return
 	
 	var spawned_balls = []
+	print('gila ')
+	var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
 	
 	for i in range(balls_to_spawn):
 		# Create new ball instance
@@ -184,16 +184,14 @@ func spawn_balls():
 		new_ball.sleeping = false
 		new_ball.linear_velocity = direction * ball_spawn_speed
 		
+		# Emit signal with spawned balls array
+		print('spaaaaawn')
+		main.add_ball(1)
+		print('tak masuk logika?')
+		spawned_balls.append(new_ball)
 		# Make sure the ball doesn't try to attach to paddle
 		# by setting it as launched before _ready() completes
 		await get_tree().process_frame  # Wait one frame for ball's _ready() to complete
-		
-		spawned_balls.append(new_ball)
-	
-	# Emit signal with spawned balls array
-	print('spaaaaawn')
-	var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
-	main.add_ball(balls_to_spawn)
 	emit_signal("balls_spawned", spawned_balls)
 
 func update_label():
