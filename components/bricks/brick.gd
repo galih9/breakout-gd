@@ -4,7 +4,8 @@ enum BrickType {
 	NORMAL,
 	MOVING,
 	BLOCK,
-	BALL  # New ball brick type
+	BALL,
+	POWER
 }
 
 @export var brick_type: BrickType = BrickType.NORMAL
@@ -16,6 +17,10 @@ enum BrickType {
 @export var ball_scene_path: String = "res://components/balls/ball.tscn"  # Fallback path
 @export var balls_to_spawn: int = 3
 @export var ball_spawn_speed: float = 300.0
+
+# power ups
+@export var power_scene: PackedScene  # Assign your ball scene in the editor
+@export var power_scene_path: String = "res://components/power/power.tscn" # Fallback path
 
 # Movement properties
 @export var is_moving: bool = false
@@ -36,6 +41,8 @@ var wait_timer: float = 0.0
 var movement_direction: int = 1
 var original_speed: float
 var speed_modifier: float = 1.0
+
+@export var specific_power_type: Generator.POWER_TYPES = Generator.POWER_TYPES.NONE  # For POWER type bricks
 
 signal brick_damaged(points)
 signal balls_spawned(balls_array)  # New signal for ball spawning
@@ -67,6 +74,9 @@ func setup_brick_type():
 			can_be_destroyed = true
 			is_moving = false
 			# You might want to use a different color/texture for ball bricks
+		BrickType.POWER:
+			can_be_destroyed = true
+			is_moving = false
 	
 	current_hp = max_hp if can_be_destroyed else 0
 	update_label()
@@ -143,6 +153,8 @@ func apply_damage(amount: int):
 		if brick_type == BrickType.BALL:
 			# Defer the ball spawning to avoid physics conflicts
 			await call_deferred("spawn_balls")
+		if brick_type == BrickType.POWER:
+			await call_deferred("spawn_power",1.0)
 		queue_free()
 
 func spawn_balls():
@@ -160,7 +172,6 @@ func spawn_balls():
 		return
 	
 	var spawned_balls = []
-	print('gila ')
 	var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
 	
 	for i in range(balls_to_spawn):
@@ -243,3 +254,43 @@ func _draw():
 			var end_point = to_local(move_points[next_i])
 			draw_line(start_point, end_point, Color.YELLOW, 2.0)
 			draw_circle(start_point, 4.0, Color.RED)
+
+func spawn_power(spawn_chance: float):
+	print("Power scene reference: ", power_scene)
+	print("Power scene is null: ", power_scene == null)
+	
+	# Try to use assigned scene first, then fallback to path
+	var scene_to_use = power_scene
+	if scene_to_use == null and power_scene_path != "":
+		print("Trying to load power from path: ", power_scene_path)
+		scene_to_use = load(power_scene_path)
+	
+	if scene_to_use == null:
+		print("Error: No power scene available!")
+		return
+	
+	# Create new power-up instance
+	var new_power = scene_to_use.instantiate()
+	
+	# Add to the same parent as the brick (usually the main scene)
+	get_parent().add_child(new_power)
+	
+	# Position at the brick's location
+	new_power.global_position = global_position
+	
+	# Set power type if this is a POWER brick with a specific type
+	if brick_type == BrickType.POWER and specific_power_type != Generator.POWER_TYPES.NONE:
+		new_power.power_type = specific_power_type
+	else:
+		# For random power-ups, you might want to set a random type
+		var power_types = Generator.POWER_TYPES.values()
+		if power_types.size() > 1:
+			# Filter out NONE type if it exists
+			power_types = power_types.filter(func(type): return type != Generator.POWER_TYPES.NONE)
+			if power_types.size() > 0:
+				new_power.power_type = power_types[randi() % power_types.size()]
+	
+	# Make sure the power-up starts falling
+	new_power.start_falling()
+	# Wait one frame for power-up's _ready() to complete
+	await get_tree().process_frame

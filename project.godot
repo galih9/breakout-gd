@@ -24,6 +24,7 @@ Generator="*res://utils/generator.gd"
 bricks=""
 walls=""
 pads=""
+bottom_walls=""
 
 [input]
 

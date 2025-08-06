@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b30q5v3p5cg4y"]
+[gd_scene load_steps=13 format=3 uid="uid://b30q5v3p5cg4y"]
 
 [ext_resource type="Script" uid="uid://cqyen472s3j3q" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ct1llcgyert80" path="res://components/pad/pad.tscn" id="2_0xm2m"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://tevjgcmelvev" path="res://components/balls/ball.tscn" id="3_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://soqbutgu50a8" path="res://assets/png/element_green_rectangle.png" id="3_lquwl"]
 [ext_resource type="FontFile" uid="uid://blyuyx283rldy" path="res://assets/fonts/Dream MMA.ttf" id="7_272bh"]
+[ext_resource type="PackedScene" uid="uid://i60k3bigray7" path="res://components/power/power.tscn" id="8_5vw27"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(16, 648)
@@ -130,9 +131,9 @@ loop_movement = false
 
 [node name="Brick21" parent="Bricks" instance=ExtResource("2_h2yge")]
 position = Vector2(488, 208)
-brick_type = 3
-ball_scene = ExtResource("3_1bvp3")
-balls_to_spawn = 2
+brick_type = 4
+power_scene = ExtResource("8_5vw27")
+specific_power_type = 3
 
 [node name="ball" parent="." instance=ExtResource("3_1bvp3")]
 position = Vector2(579, 546)
@@ -158,7 +159,7 @@ shape = SubResource("RectangleShape2D_h2yge")
 position = Vector2(1160, 324)
 shape = SubResource("RectangleShape2D_0xm2m")
 
-[node name="GameOverSensor" type="Area2D" parent="."]
+[node name="GameOverSensor" type="Area2D" parent="." groups=["bottom_walls"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameOverSensor"]
 position = Vector2(568, 656)
