@@ -27,6 +27,9 @@ func _physics_process(_delta):
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("pads"):
+		var pad_ref = get_tree().get_nodes_in_group("pads")
+		print(pad_ref, 'power parent')
+		pad_ref[0].widen_pad()
 		queue_free()
 	if body.is_in_group("bottom_walls"):
 		queue_free()

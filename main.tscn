@@ -1,11 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b30q5v3p5cg4y"]
+[gd_scene load_steps=12 format=3 uid="uid://b30q5v3p5cg4y"]
 
 [ext_resource type="Script" uid="uid://cqyen472s3j3q" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ct1llcgyert80" path="res://components/pad/pad.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cf4kbulubo4s7" path="res://pause.tscn" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bs1u4o8t4t160" path="res://components/bricks/brick.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://tevjgcmelvev" path="res://components/balls/ball.tscn" id="3_1bvp3"]
-[ext_resource type="Texture2D" uid="uid://soqbutgu50a8" path="res://assets/png/element_green_rectangle.png" id="3_lquwl"]
 [ext_resource type="FontFile" uid="uid://blyuyx283rldy" path="res://assets/fonts/Dream MMA.ttf" id="7_272bh"]
 [ext_resource type="PackedScene" uid="uid://i60k3bigray7" path="res://components/power/power.tscn" id="8_5vw27"]
 
@@ -29,109 +28,15 @@ script = ExtResource("1_ig7tw")
 
 [node name="Bricks" type="Node2D" parent="."]
 
-[node name="Brick" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(328, 176)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick2" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(704, 240)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick3" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(640, 176)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick4" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(264, 208)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick5" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(952, 288)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick6" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(888, 288)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick7" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(704, 208)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick8" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(576, 240)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick9" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(576, 208)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick10" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(392, 176)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick11" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(264, 176)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick12" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(392, 208)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick13" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(328, 240)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick14" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(264, 240)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick15" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(392, 240)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick16" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(576, 176)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick17" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(640, 240)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick18" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(640, 208)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick19" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(704, 176)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick20" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(1016, 288)
-brick_texture = ExtResource("3_lquwl")
-loop_movement = false
-
-[node name="Brick21" parent="Bricks" instance=ExtResource("2_h2yge")]
+[node name="Brick22" parent="Bricks" instance=ExtResource("2_h2yge")]
 position = Vector2(488, 208)
-brick_type = 4
+brick_type = 3
+power_scene = ExtResource("8_5vw27")
+specific_power_type = 3
+
+[node name="Brick23" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(968, 152)
+brick_type = 3
 power_scene = ExtResource("8_5vw27")
 specific_power_type = 3
 

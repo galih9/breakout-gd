@@ -19,19 +19,8 @@ var launched: bool = false
 var paddle_ref: Node2D
 var socket_ref: Marker2D
 
-var padsounds = [
-	preload("res://assets/audio/rollover1.ogg"),
-	preload("res://assets/audio/rollover2.ogg"),
-	preload("res://assets/audio/rollover4.ogg"),
-	preload("res://assets/audio/rollover5.ogg"),
-]
-var wallbricksound = [
-	preload("res://assets/audio/click1.ogg"),
-	preload("res://assets/audio/click2.ogg"),
-	preload("res://assets/audio/click3.ogg"),
-	preload("res://assets/audio/click4.ogg"),
-	preload("res://assets/audio/click5.ogg"),
-]
+var padsounds = []
+var wallbricksound = []
 
 func _ready():
 	# Setup trail
@@ -176,15 +165,17 @@ func _on_paddle_right_hit(ball_node_ref: Node2D) -> void:
 	print("Ball hit right sensor!")
 
 func play_random_click_sound():
-	var random_index = Generator.generate_random_number(0, wallbricksound.size() - 1)
-	$AudioStreamPlayer.stream = wallbricksound[random_index]
-	$AudioStreamPlayer.play()
+	#var random_index = Generator.generate_random_number(0, wallbricksound.size() - 1)
+	#$AudioStreamPlayer.stream = wallbricksound[random_index]
+	#$AudioStreamPlayer.play()
+	pass
 	
 
 func play_random_pad_sound():
-	var random_index = Generator.generate_random_number(0, padsounds.size() - 1)
-	$AudioStreamPlayer.stream = padsounds[random_index]
-	$AudioStreamPlayer.play()
+	#var random_index = Generator.generate_random_number(0, padsounds.size() - 1)
+	#$AudioStreamPlayer.stream = padsounds[random_index]
+	#$AudioStreamPlayer.play()
+	pass
 
 func _on_Area2D_body_entered(body):
 	if body.is_in_group("walls"):
@@ -194,8 +185,8 @@ func _on_Area2D_body_entered(body):
 	elif body.is_in_group("pads"):
 		play_random_pad_sound()
 	if body.is_in_group("bricks") && body.has_method("apply_damage"):
-		var main = get_tree().get_root().get_node("Main")  # Or use $"../.." if predictable
-		main.brick_destroyed(100)  # Send score or any data
+		var main = get_tree().get_root().get_node("Main")
+		main.brick_destroyed(100)
 		body.apply_damage(damage)
 
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:
