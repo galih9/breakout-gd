@@ -53,7 +53,6 @@ func _ready():
 		setup_movement()
 
 func setup_brick_type():
-
 	match brick_type:
 		BrickType.NORMAL:
 			can_be_destroyed = true
@@ -144,54 +143,7 @@ func apply_damage(amount: int):
 	update_label()
 
 	if current_hp <= 0:
-
-		if brick_type == BrickType.BALL:
-
-			await call_deferred("spawn_balls")
-		if brick_type == BrickType.POWER:
-			await call_deferred("spawn_power",1.0)
 		queue_free()
-
-func spawn_balls():
-	print("Ball scene reference: ", ball_scene)
-	print("Ball scene is null: ", ball_scene == null)
-
-	var scene_to_use = ball_scene
-	if scene_to_use == null and ball_scene_path != "":
-		print("Trying to load from path: ", ball_scene_path)
-		scene_to_use = load(ball_scene_path)
-
-	if scene_to_use == null:
-		print("Error: No ball scene available!")
-		return
-
-	var spawned_balls = []
-	var main = get_tree().get_root().get_node("Main")
-
-	for i in range(balls_to_spawn):
-
-		var new_ball = scene_to_use.instantiate()
-
-		get_parent().add_child(new_ball)
-
-		new_ball.global_position = global_position
-
-		var angle = randf_range(PI * 0.2, PI * 0.8)
-		if randf() > 0.5:
-			angle = PI - angle
-		var direction = Vector2(cos(angle), sin(angle))
-
-		new_ball.launched = true
-		new_ball.sleeping = false
-		new_ball.linear_velocity = direction * ball_spawn_speed
-
-		print('spaaaaawn')
-		main.add_ball(1)
-		print('tak masuk logika?')
-		spawned_balls.append(new_ball)
-
-		await get_tree().process_frame
-	emit_signal("balls_spawned", spawned_balls)
 
 func update_label():
 	if hp_label:
@@ -242,36 +194,35 @@ func _draw():
 			draw_line(start_point, end_point, Color.YELLOW, 2.0)
 			draw_circle(start_point, 4.0, Color.RED)
 
-func spawn_power(spawn_chance: float):
-	print("Power scene reference: ", power_scene)
-	print("Power scene is null: ", power_scene == null)
-
-	var scene_to_use = power_scene
-	if scene_to_use == null and power_scene_path != "":
-		print("Trying to load power from path: ", power_scene_path)
-		scene_to_use = load(power_scene_path)
-
-	if scene_to_use == null:
-		print("Error: No power scene available!")
-		return
-
-	var new_power = scene_to_use.instantiate()
-
-	get_parent().add_child(new_power)
-
-	new_power.global_position = global_position
-
-	if brick_type == BrickType.POWER and specific_power_type != Generator.POWER_TYPES.NONE:
-		new_power.power_type = specific_power_type
-	else:
-
-		var power_types = Generator.POWER_TYPES.values()
-		if power_types.size() > 1:
-
-			power_types = power_types.filter(func(type): return type != Generator.POWER_TYPES.NONE)
-			if power_types.size() > 0:
-				new_power.power_type = power_types[randi() % power_types.size()]
-
-	new_power.start_falling()
-
-	await get_tree().process_frame
+func spawn_power(_spawn_chance: float):
+	return # Power-ups disabled
+#	print("Power scene reference: ", power_scene)
+#	print("Power scene is null: ", power_scene == null)
+#
+#	var scene_to_use = power_scene
+#	if scene_to_use == null and power_scene_path != "":
+#		print("Trying to load power from path: ", power_scene_path)
+#		scene_to_use = load(power_scene_path)
+#
+#	if scene_to_use == null:
+#		print("Error: No power scene available!")
+#		return
+#
+#	var new_power = scene_to_use.instantiate()
+#
+#	get_parent().add_child(new_power)
+#
+#	new_power.global_position = global_position
+#
+#	if brick_type == BrickType.POWER and specific_power_type != Generator.POWER_TYPES.NONE:
+#		new_power.power_type = specific_power_type
+#	else:
+#		var power_types = Generator.POWER_TYPES.values()
+#		if power_types.size() > 1:
+#			power_types = power_types.filter(func(type): return type != Generator.POWER_TYPES.NONE)
+#			if power_types.size() > 0:
+#				new_power.power_type = power_types[randi() % power_types.size()]
+#
+#	new_power.start_falling()
+#
+#	await get_tree().process_frame

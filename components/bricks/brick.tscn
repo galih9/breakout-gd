@@ -10,16 +10,6 @@ size = Vector2(64, 32)
 collision_mask = 2
 script = ExtResource("1_5p85m")
 
-[node name="Label" type="Label" parent="."]
-z_index = 2
-offset_left = -24.0
-offset_top = -16.0
-offset_right = 24.0
-offset_bottom = 16.0
-text = "0"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_5p85m")
 

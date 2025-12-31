@@ -23,12 +23,12 @@ func _ready():
 
 func add_ball(count):
 	print('add ball called')
-	ball_count = ball_count+count
+	ball_count = ball_count + count
 	print(ball_count)
 
 func remove_ball():
 	print('remove ball called')
-	ball_count = ball_count-1
+	ball_count = ball_count - 1
 	print(ball_count)
 
 func brick_destroyed(points):
@@ -76,7 +76,7 @@ func store_initial_brick_layout():
 				"position": child.position,
 				"brick_texture": child.brick_texture,
 				"max_hp": child.max_hp,
-				"brick_type": child.brick_type as int,  # Store as integer
+				"brick_type": child.brick_type as int, # Store as integer
 				# Movement properties
 				"is_moving": child.is_moving,
 				"move_points": child.move_points.duplicate(),
@@ -104,7 +104,7 @@ func spawn_bricks():
 			
 			# Only increase HP for destroyable bricks
 			if new_brick.can_be_destroyed:
-				new_brick.max_hp = data.max_hp + (current_level - 1)
+				new_brick.max_hp = 1 # Force max HP to 1 for simplicity
 				new_brick.current_hp = new_brick.max_hp
 			
 			# Apply movement properties
@@ -122,7 +122,7 @@ func reset_level():
 	# Reset the ball to its initial state/position
 	ball_node.reset_ball()
 	# Reset the launch flag so the player must launch the ball again
-	launched_once = false 
+	launched_once = false
 
 	# Spawn the next set of bricks for the new level
 	spawn_bricks()

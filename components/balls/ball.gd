@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 @export var initial_speed: float = 300.0
-@export var damage := 1  # Ball level / damage
+@export var damage := 1 # Ball level / damage
 @export var min_vertical_speed_ratio: float = 0.5 # Minimum vertical speed as a ratio of initial_speed
 @export var side_bounce_strength: float = 0.7 # How much horizontal velocity to add/subtract (0.0 to 1.0)
 @export var middle_bounce_vertical_bias: float = 0.2 # How much more vertical the middle bounce is
@@ -25,8 +25,8 @@ var wallbricksound = []
 func _ready():
 	# Setup trail
 	trail.gradient = create_trail_gradient()
-	trail_width_curve.add_point(Vector2(0.0, 1.0))  # Full width at start
-	trail_width_curve.add_point(Vector2(1.0, 0.0))  # Zero width at end
+	trail_width_curve.add_point(Vector2(0.0, 1.0)) # Full width at start
+	trail_width_curve.add_point(Vector2(1.0, 0.0)) # Zero width at end
 	trail.width_curve = trail_width_curve
 	trail.width = trail_width
 	
@@ -86,7 +86,7 @@ func launch_ball():
 	launched = true
 	# Launch with a slight, consistent angle (e.g., 0.1 for a small horizontal push)
 	var initial_horizontal_bias = 0.1 # Adjust this value (e.g., 0.05 to 0.2)
-	var direction = Vector2(initial_horizontal_bias, -1).normalized() 
+	var direction = Vector2(initial_horizontal_bias, -1).normalized()
 	linear_velocity = direction * initial_speed
 	# Ensure trail starts smoothly
 	trail_points = [global_position] # Start with current position
@@ -145,22 +145,38 @@ func _on_ice_power_timer_timeout():
 # --- Paddle Hit Functions ---
 func _on_paddle_left_hit(ball_node_ref: Node2D) -> void:
 	if ball_node_ref != self: return
-	var new_y = -abs(linear_velocity.y) 
-	var new_x = -initial_speed * side_bounce_strength
+	var new_y = - abs(linear_velocity.y)
+	
+	# Determine bounce direction based on incoming velocity
+	# If moving right (from left), keep moving right
+	var new_x
+	if linear_velocity.x > 0:
+		new_x = initial_speed * side_bounce_strength
+	else:
+		new_x = - initial_speed * side_bounce_strength
+		
 	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
 	print("Ball hit left sensor!")
 
 func _on_paddle_middle_hit(ball_node_ref: Node2D) -> void:
 	if ball_node_ref != self: return
-	var new_y = -abs(linear_velocity.y) 
+	var new_y = - abs(linear_velocity.y)
 	var new_x = linear_velocity.x * (1.0 - middle_bounce_vertical_bias)
 	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
 	print("Ball hit middle sensor!")
 
 func _on_paddle_right_hit(ball_node_ref: Node2D) -> void:
 	if ball_node_ref != self: return
-	var new_y = -abs(linear_velocity.y) 
-	var new_x = initial_speed * side_bounce_strength
+	var new_y = - abs(linear_velocity.y)
+	
+	# Determine bounce direction based on incoming velocity
+	# If moving left (from right), keep moving left
+	var new_x
+	if linear_velocity.x < 0:
+		new_x = - initial_speed * side_bounce_strength
+	else:
+		new_x = initial_speed * side_bounce_strength
+		
 	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
 	print("Ball hit right sensor!")
 
@@ -191,16 +207,16 @@ func _on_Area2D_body_entered(body):
 
 func _on_GameOverSensor_body_entered(body: Node2D) -> void:
 	if launched:
-		print("something touching the over sensor => " ,body)
+		print("something touching the over sensor => ", body)
 		var main = get_tree().get_root().get_node("Main")
 		main.remove_ball()
 
 func create_trail_gradient():
 	var gradient = Gradient.new()
-	gradient.add_point(0.0, Color(0, 1, 1, 1.0))   # Bright cyan at start
-	gradient.add_point(0.3, Color(0, 1, 1, 0.7))   # Slightly faded cyan
+	gradient.add_point(0.0, Color(0, 1, 1, 1.0)) # Bright cyan at start
+	gradient.add_point(0.3, Color(0, 1, 1, 0.7)) # Slightly faded cyan
 	gradient.add_point(0.6, Color(0, 0.5, 1, 0.4)) # Transition to darker blue
-	gradient.add_point(1.0, Color(0, 0, 1, 0.0))   # Fully transparent blue
+	gradient.add_point(1.0, Color(0, 0, 1, 0.0)) # Fully transparent blue
 	return gradient
 
 func update_trail():
