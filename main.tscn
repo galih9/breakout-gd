@@ -1,12 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://b30q5v3p5cg4y"]
+[gd_scene load_steps=16 format=3 uid="uid://b30q5v3p5cg4y"]
 
 [ext_resource type="Script" uid="uid://cqyen472s3j3q" path="res://main.gd" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://ct1llcgyert80" path="res://components/pad/pad.tscn" id="2_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cf4kbulubo4s7" path="res://pause.tscn" id="2_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bs1u4o8t4t160" path="res://components/bricks/brick.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://tevjgcmelvev" path="res://components/balls/ball.tscn" id="3_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://cuhvumi65e40m" path="res://assets/png/element_yellow_rectangle.png" id="4_272bh"]
+[ext_resource type="Texture2D" uid="uid://lr0m86c03fic" path="res://assets/png/element_red_rectangle.png" id="5_5vw27"]
+[ext_resource type="Texture2D" uid="uid://soqbutgu50a8" path="res://assets/png/element_green_rectangle.png" id="6_efxa6"]
 [ext_resource type="FontFile" uid="uid://blyuyx283rldy" path="res://assets/fonts/Dream MMA.ttf" id="7_272bh"]
-[ext_resource type="PackedScene" uid="uid://i60k3bigray7" path="res://components/power/power.tscn" id="8_5vw27"]
+[ext_resource type="Texture2D" uid="uid://bxfrx6xdquad3" path="res://assets/png/element_grey_rectangle.png" id="7_dg77c"]
+[ext_resource type="Texture2D" uid="uid://bhkdm5g5q3sac" path="res://assets/png/element_purple_rectangle.png" id="8_ycdy4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0xm2m"]
 size = Vector2(16, 648)
@@ -29,22 +33,378 @@ script = ExtResource("1_ig7tw")
 [node name="Bricks" type="Node2D" parent="."]
 
 [node name="Brick22" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(488, 208)
-brick_type = 3
-power_scene = ExtResource("8_5vw27")
-specific_power_type = 3
+position = Vector2(992, 304)
 
 [node name="Brick23" parent="Bricks" instance=ExtResource("2_h2yge")]
-position = Vector2(968, 152)
-brick_type = 3
-power_scene = ExtResource("8_5vw27")
-specific_power_type = 3
+position = Vector2(1056, 304)
+
+[node name="Brick24" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(864, 304)
+
+[node name="Brick25" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(928, 304)
+
+[node name="Brick26" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(224, 304)
+
+[node name="Brick27" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(288, 304)
+
+[node name="Brick28" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(96, 304)
+
+[node name="Brick29" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(160, 304)
+
+[node name="Brick30" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(480, 304)
+
+[node name="Brick31" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(544, 304)
+
+[node name="Brick32" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(352, 304)
+
+[node name="Brick33" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(416, 304)
+
+[node name="Brick34" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(736, 304)
+
+[node name="Brick35" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(800, 304)
+
+[node name="Brick36" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(608, 304)
+
+[node name="Brick37" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(672, 304)
+
+[node name="Brick38" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(992, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick39" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(1056, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick40" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(864, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick41" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(928, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick42" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(736, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick43" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(800, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick44" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(608, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick45" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(672, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick46" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(480, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick47" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(544, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick48" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(352, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick49" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(416, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick50" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(224, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick51" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(288, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick52" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(96, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick53" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(160, 176)
+brick_texture = ExtResource("4_272bh")
+
+[node name="Brick54" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(96, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick55" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(160, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick56" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(224, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick57" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(288, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick58" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(352, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick59" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(416, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick60" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(480, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick61" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(544, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick62" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(608, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick63" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(672, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick64" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(736, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick65" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(800, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick66" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(864, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick67" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(928, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick68" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(992, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick69" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(1056, 112)
+brick_texture = ExtResource("5_5vw27")
+
+[node name="Brick70" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(96, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick71" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(96, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick72" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(96, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick73" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(160, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick74" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(224, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick75" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(288, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick76" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(352, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick77" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(416, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick78" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(480, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick79" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(544, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick80" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(608, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick81" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(672, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick82" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(736, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick83" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(800, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick84" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(864, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick85" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(928, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick86" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(992, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick87" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(1056, 240)
+brick_texture = ExtResource("6_efxa6")
+
+[node name="Brick88" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(160, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick89" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(224, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick90" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(288, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick91" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(352, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick92" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(416, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick93" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(480, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick94" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(544, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick95" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(608, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick96" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(672, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick97" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(736, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick98" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(800, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick99" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(864, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick100" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(928, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick101" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(992, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick102" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(1056, 368)
+brick_texture = ExtResource("7_dg77c")
+
+[node name="Brick103" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(160, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick104" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(224, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick105" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(288, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick106" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(352, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick107" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(416, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick108" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(480, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick109" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(544, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick110" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(608, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick111" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(672, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick112" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(736, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick113" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(800, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick114" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(864, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick115" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(928, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick116" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(992, 48)
+brick_texture = ExtResource("8_ycdy4")
+
+[node name="Brick117" parent="Bricks" instance=ExtResource("2_h2yge")]
+position = Vector2(1056, 48)
+brick_texture = ExtResource("8_ycdy4")
 
 [node name="ball" parent="." instance=ExtResource("3_1bvp3")]
-position = Vector2(579, 546)
+position = Vector2(576, 568)
 
 [node name="Pad" parent="." groups=["pads"] instance=ExtResource("2_0xm2m")]
-position = Vector2(579, 580)
+position = Vector2(576, 602)
 
 [node name="WallLeft" type="StaticBody2D" parent="." groups=["walls"]]
 

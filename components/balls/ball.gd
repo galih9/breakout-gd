@@ -145,40 +145,52 @@ func _on_ice_power_timer_timeout():
 # --- Paddle Hit Functions ---
 func _on_paddle_left_hit(ball_node_ref: Node2D) -> void:
 	if ball_node_ref != self: return
-	var new_y = - abs(linear_velocity.y)
 	
-	# Determine bounce direction based on incoming velocity
-	# If moving right (from left), keep moving right
-	var new_x
-	if linear_velocity.x > 0:
-		new_x = initial_speed * side_bounce_strength
-	else:
-		new_x = - initial_speed * side_bounce_strength
-		
+	# Case 1 & General Left Hit: 
+	# User wants "hit left side ... bounce to the left".
+	# So we force the X component to be negative (Left), regardless of approach.
+	
+	var new_y = - abs(linear_velocity.y) # Always bounce up
+	var new_x = - initial_speed * side_bounce_strength # Force Left direction
+	
+	# If it was already moving left, this preserves it.
+	# If it was coming from the left (moving right) and hit the left side (inner edge case), this reverses it to left.
+	
 	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
-	print("Ball hit left sensor!")
+	print("Ball hit left sensor - Bouncing Left")
 
 func _on_paddle_middle_hit(ball_node_ref: Node2D) -> void:
 	if ball_node_ref != self: return
 	var new_y = - abs(linear_velocity.y)
-	var new_x = linear_velocity.x * (1.0 - middle_bounce_vertical_bias)
-	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
-	print("Ball hit middle sensor!")
+	
+	# Case 3: "comes from the center and at around 90 degree" -> Randomize
+	# Check if horizontal speed is very low (indicating nearly vertical movement)
+	if abs(linear_velocity.x) < (initial_speed * 0.2):
+		print("Vertical hit detected - Randomizing bounce")
+		# Pick a random direction (left or right) for the kick
+		var random_direction = 1 if randf() > 0.5 else -1
+		var random_kick = initial_speed * 0.3 # Add some horizontal momentum
+		var new_x = random_direction * random_kick
+		linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
+	else:
+		# Standard reflection for non-vertical middle hits
+		# dampen x to keep it mostly vertical or reflect naturally
+		var new_x = linear_velocity.x * (1.0 - middle_bounce_vertical_bias)
+		linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
+		print("Ball hit middle sensor")
 
 func _on_paddle_right_hit(ball_node_ref: Node2D) -> void:
 	if ball_node_ref != self: return
-	var new_y = - abs(linear_velocity.y)
 	
-	# Determine bounce direction based on incoming velocity
-	# If moving left (from right), keep moving left
-	var new_x
-	if linear_velocity.x < 0:
-		new_x = - initial_speed * side_bounce_strength
-	else:
-		new_x = initial_speed * side_bounce_strength
-		
+	# Case 2 & General Right Hit:
+	# User wants "hit right side ... bounce back to the right".
+	# So we force the X component to be positive (Right).
+	
+	var new_y = - abs(linear_velocity.y)
+	var new_x = initial_speed * side_bounce_strength # Force Right direction
+	
 	linear_velocity = Vector2(new_x, new_y).normalized() * initial_speed
-	print("Ball hit right sensor!")
+	print("Ball hit right sensor - Bouncing Right")
 
 func play_random_click_sound():
 	#var random_index = Generator.generate_random_number(0, wallbricksound.size() - 1)

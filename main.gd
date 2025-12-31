@@ -11,15 +11,7 @@ var launched_once: bool = false # Flag to prevent immediate level clear on start
 var score = 0
 
 func _ready():
-	# Ensure the ball is at its starting position before the game begins
 	ball_node.reset_ball()
-	
-	# Store the initial state of the bricks when the game starts
-	# This will also clear the initial bricks from the scene
-	store_initial_brick_layout()
-	
-	# The first set of bricks will be spawned by store_initial_brick_layout
-	# No need to call spawn_bricks() here again.
 
 func add_ball(count):
 	print('add ball called')
@@ -65,66 +57,10 @@ func check_for_bricks_remaining():
 		current_level += 1
 		reset_level()
 
-func store_initial_brick_layout():
-	initial_brick_data.clear()
-	print('curr level ', current_level)
-
-	for child in bricks_node.get_children():
-		if child is StaticBody2D and child.is_in_group("bricks"):
-			var brick_data = {
-				"scene_path": child.scene_file_path,
-				"position": child.position,
-				"brick_texture": child.brick_texture,
-				"max_hp": child.max_hp,
-				"brick_type": child.brick_type as int, # Store as integer
-				# Movement properties
-				"is_moving": child.is_moving,
-				"move_points": child.move_points.duplicate(),
-				"move_speed": child.move_speed,
-				"wait_time_at_points": child.wait_time_at_points,
-				"loop_movement": child.loop_movement
-			}
-			initial_brick_data.append(brick_data)
-			child.queue_free()
-
-	spawn_bricks()
-
-func spawn_bricks():
-	for child in bricks_node.get_children():
-		child.queue_free()
-	
-	for data in initial_brick_data:
-		var brick_scene = load(data.scene_path)
-		if brick_scene:
-			var new_brick = brick_scene.instantiate()
-			new_brick.brick_type = data.brick_type # Set brick type before adding to scene
-			bricks_node.add_child(new_brick)
-			new_brick.position = data.position
-			new_brick.brick_texture = data.brick_texture
-			
-			# Only increase HP for destroyable bricks
-			if new_brick.can_be_destroyed:
-				new_brick.max_hp = 1 # Force max HP to 1 for simplicity
-				new_brick.current_hp = new_brick.max_hp
-			
-			# Apply movement properties
-			if data.brick_type == new_brick.BrickType.MOVING:
-				new_brick.is_moving = data.is_moving
-				new_brick.move_points = data.move_points.duplicate()
-				new_brick.move_speed = data.move_speed
-				new_brick.wait_time_at_points = data.wait_time_at_points
-				new_brick.loop_movement = data.loop_movement
-				new_brick.setup_movement()
-	
-	print("Bricks spawned for Level ", current_level)
-
 func reset_level():
 	# Reset the ball to its initial state/position
 	ball_node.reset_ball()
 	# Reset the launch flag so the player must launch the ball again
 	launched_once = false
-
-	# Spawn the next set of bricks for the new level
-	spawn_bricks()
 
 	print("Bricks spawned for Level ", current_level)
